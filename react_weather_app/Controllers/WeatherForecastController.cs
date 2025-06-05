@@ -25,7 +25,7 @@ public class WeatherForecastController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] string city = "New York")
     {
-        var apiKey = _config["API_KEY"];
+        var apiKey = Environment.GetEnvironmentVariable("API_KEY") ?? _config["WeatherApi:ApiKey"];
         string url = $"http://api.weatherapi.com/v1/current.json?key={apiKey}&q={city}&aqi=no";
 
         var response = await _httpClient.GetAsync(url);
